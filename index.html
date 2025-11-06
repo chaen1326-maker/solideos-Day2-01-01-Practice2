@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="서울에서 여수로 가는 2박 3일 여행 일정 - 관광지, 맛집, 교통편 정보">
     <title>여수 2박 3일 여행 경로</title>
     <style>
         * {
@@ -11,11 +12,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 10px;
+            padding: 5px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
@@ -34,12 +41,13 @@
         }
 
         header h1 {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 5px;
+            font-weight: 700;
         }
 
         header p {
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.9;
         }
 
@@ -47,7 +55,7 @@
             display: grid;
             grid-template-columns: 1fr 400px;
             gap: 0;
-            height: calc(100vh - 90px);
+            height: calc(100vh - 80px);
         }
 
         .map-section {
@@ -64,10 +72,11 @@
             background: #fafafa;
             overflow-y: auto;
             border-left: 1px solid #ddd;
+            -webkit-overflow-scrolling: touch;
         }
 
         .schedule-section::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         .schedule-section::-webkit-scrollbar-track {
@@ -76,7 +85,7 @@
 
         .schedule-section::-webkit-scrollbar-thumb {
             background: #888;
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
         .schedule-section::-webkit-scrollbar-thumb:hover {
@@ -92,7 +101,7 @@
             color: white;
             padding: 12px 15px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 15px;
             position: sticky;
             top: 0;
             z-index: 10;
@@ -104,6 +113,11 @@
             border-bottom: 1px solid #eee;
             transition: background 0.2s;
             cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+
+        .location-item:active {
+            background: #e3f2fd;
         }
 
         .location-item:hover {
@@ -115,7 +129,7 @@
         }
 
         .location-time {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
             margin-bottom: 5px;
             display: flex;
@@ -124,27 +138,30 @@
         }
 
         .location-name {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #333;
             margin-bottom: 4px;
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .location-address {
-            font-size: 12px;
+            font-size: 11px;
             color: #888;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .type-badge {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: 12px;
-            font-size: 11px;
-            font-weight: normal;
+            font-size: 10px;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .type-attraction {
@@ -180,51 +197,247 @@
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 15px;
+            gap: 8px;
+            padding: 12px;
             background: white;
             border-bottom: 1px solid #e0e0e0;
         }
 
         .stat-item {
             text-align: center;
-            padding: 10px;
+            padding: 10px 5px;
             background: #f9f9f9;
             border-radius: 8px;
         }
 
         .stat-label {
-            font-size: 11px;
+            font-size: 10px;
             color: #666;
             margin-bottom: 5px;
         }
 
         .stat-value {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #667eea;
         }
 
-        @media (max-width: 968px) {
+        /* 태블릿 (가로모드) */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .main-content {
+                grid-template-columns: 1fr 350px;
+            }
+
+            header h1 {
+                font-size: 18px;
+            }
+        }
+
+        /* 태블릿 (세로모드) */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            header {
+                padding: 12px 15px;
+            }
+
+            header h1 {
+                font-size: 18px;
+            }
+
+            header p {
+                font-size: 12px;
+            }
+
             .main-content {
                 grid-template-columns: 1fr;
                 height: auto;
+                min-height: calc(100vh - 70px);
             }
 
             .map-section {
-                height: 400px;
+                height: 50vh;
+                min-height: 300px;
             }
 
             .schedule-section {
                 border-left: none;
-                border-top: 1px solid #ddd;
-                max-height: 600px;
+                border-top: 2px solid #ddd;
+                max-height: none;
+                min-height: 50vh;
             }
 
             .stats {
-                grid-template-columns: 1fr;
-                gap: 8px;
+                position: sticky;
+                top: 0;
+                z-index: 5;
+                padding: 10px;
+                gap: 6px;
             }
+
+            .stat-item {
+                padding: 8px 4px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            .day-header {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .location-item {
+                padding: 10px 12px;
+            }
+
+            .location-name {
+                font-size: 13px;
+            }
+
+            .location-address {
+                font-size: 11px;
+            }
+        }
+
+        /* 모바일 (작은 화면) */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 16px;
+            }
+
+            header p {
+                font-size: 11px;
+            }
+
+            .stats {
+                padding: 8px;
+                gap: 5px;
+            }
+
+            .stat-item {
+                padding: 6px 3px;
+            }
+
+            .stat-label {
+                font-size: 8px;
+            }
+
+            .stat-value {
+                font-size: 13px;
+            }
+
+            .map-section {
+                height: 40vh;
+                min-height: 250px;
+            }
+
+            .day-header {
+                font-size: 13px;
+                padding: 8px 10px;
+            }
+
+            .location-item {
+                padding: 8px 10px;
+            }
+
+            .location-time {
+                font-size: 10px;
+            }
+
+            .location-name {
+                font-size: 12px;
+                gap: 6px;
+            }
+
+            .location-address {
+                font-size: 10px;
+                line-height: 1.4;
+            }
+
+            .type-badge {
+                padding: 2px 6px;
+                font-size: 9px;
+            }
+        }
+
+        /* 가로모드 (모바일) */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .main-content {
+                grid-template-columns: 1fr 1fr;
+                height: calc(100vh - 70px);
+            }
+
+            .map-section {
+                height: 100%;
+            }
+
+            .schedule-section {
+                border-left: 1px solid #ddd;
+                border-top: none;
+                max-height: 100%;
+                overflow-y: auto;
+            }
+
+            .stats {
+                display: flex;
+                gap: 5px;
+                padding: 8px;
+            }
+
+            .stat-item {
+                flex: 1;
+                padding: 6px 4px;
+            }
+        }
+
+        /* 아이폰 노치 지원 */
+        @supports(padding: max(0px)) {
+            body {
+                padding-left: max(5px, env(safe-area-inset-left));
+                padding-right: max(5px, env(safe-area-inset-right));
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    padding-left: env(safe-area-inset-left);
+                    padding-right: env(safe-area-inset-right);
+                }
+            }
+        }
+
+        /* 다크모드 미디어 쿼리 (선택사항) */
+        @media (prefers-color-scheme: dark) {
+            /* 다크모드는 일단 제외 */
+        }
+
+        /* 터치 개선 */
+        @media (hover: none) {
+            .location-item:hover {
+                background: transparent;
+            }
+        }
+
+        /* 로딩 스피너 */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -237,7 +450,9 @@
 
         <div class="main-content">
             <div class="map-section">
-                <div id="map"></div>
+                <div id="map">
+                    <div class="loading">🗺️ 지도를 불러오는 중...</div>
+                </div>
             </div>
 
             <div class="schedule-section">
@@ -258,7 +473,7 @@
 
                 <div class="day-section">
                     <div class="day-header">📅 Day 1 - 여수 도착 및 오후 관광</div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="0">
                         <div class="location-time">⏰ 12:00</div>
                         <div class="location-name">
                             <span class="type-badge type-arrival">도착</span>
@@ -266,7 +481,7 @@
                         </div>
                         <div class="location-address">여수시청 - 서울시청에서 출발하여 여수 도착</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="1">
                         <div class="location-time">⏰ 12:30-14:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -274,7 +489,7 @@
                         </div>
                         <div class="location-address">여수시 돌산읍 돌산로 3600 (서울식당) - 60년 전통의 돌게장 원조 맛집</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="2">
                         <div class="location-time">⏰ 14:30-16:30</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -282,7 +497,7 @@
                         </div>
                         <div class="location-address">여수시 오동도로 222 - 동백꽃으로 유명한 아름다운 섬</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="3">
                         <div class="location-time">⏰ 17:00-19:00</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -290,7 +505,7 @@
                         </div>
                         <div class="location-address">여수시 돌산읍 돌산로 3600-1 - 입장료 15,000원</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="4">
                         <div class="location-time">⏰ 19:30-21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -298,7 +513,7 @@
                         </div>
                         <div class="location-address">여수시 학동 252-1 (여수아구찜) - 매콤하고 푸짐한 아구찜</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="5">
                         <div class="location-time">⏰ 21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-accommodation">숙박</span>
@@ -310,7 +525,7 @@
 
                 <div class="day-section">
                     <div class="day-header">📅 Day 2 - 여수 본격 관광</div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="6">
                         <div class="location-time">⏰ 06:00-08:00</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -318,7 +533,7 @@
                         </div>
                         <div class="location-address">여수시 돌산읍 향일암로 60 - 해돋이로 유명한 아름다운 사찰</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="7">
                         <div class="location-time">⏰ 08:30-10:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -326,7 +541,7 @@
                         </div>
                         <div class="location-address">여수시 군자동 5-10 (진남관백반) - 푸짐한 반찬과 가정식 백반</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="8">
                         <div class="location-time">⏰ 10:30-12:00</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -334,7 +549,7 @@
                         </div>
                         <div class="location-address">여수시 망마로 187 - 바다 위를 달리는 레일바이크 (입장료 20,000원)</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="9">
                         <div class="location-time">⏰ 12:30-14:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -342,7 +557,7 @@
                         </div>
                         <div class="location-address">여수시 광무동 1-5 (해양식당) - 갓 잡은 생선으로 만든 생선구이 정식</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="10">
                         <div class="location-time">⏰ 14:30-16:30</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -350,7 +565,7 @@
                         </div>
                         <div class="location-address">여수시 박람회길 1 - 2012 여수세계박람회 개최지 (입장료 5,000원)</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="11">
                         <div class="location-time">⏰ 17:00-18:00</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -358,7 +573,7 @@
                         </div>
                         <div class="location-address">여수시 군자동 5-1 - 전라좌수영의 본영 역사 유적 (입장료 2,000원)</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="12">
                         <div class="location-time">⏰ 18:30-20:30</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -366,7 +581,7 @@
                         </div>
                         <div class="location-address">여수시 돌산읍 - 여수의 대표 야경 명소</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="13">
                         <div class="location-time">⏰ 20:30-21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -374,7 +589,7 @@
                         </div>
                         <div class="location-address">여수시 중앙동 포차거리 - 여수 밤바다를 즐기며 포차 음식</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="14">
                         <div class="location-time">⏰ 21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-accommodation">숙박</span>
@@ -386,7 +601,7 @@
 
                 <div class="day-section">
                     <div class="day-header">📅 Day 3 - 여수 마지막 관광 및 서울 귀가</div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="15">
                         <div class="location-time">⏰ 09:00-10:00</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -394,7 +609,7 @@
                         </div>
                         <div class="location-address">여수시 만성리 산1-22 - 깨끗한 백사장과 맑은 바닷물</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="16">
                         <div class="location-time">⏰ 10:30-11:30</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -402,7 +617,7 @@
                         </div>
                         <div class="location-address">여수시 오동도로 222 - 오동도의 상징적인 등대</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="17">
                         <div class="location-time">⏰ 12:00-13:30</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -410,7 +625,7 @@
                         </div>
                         <div class="location-address">여수시 문수동 1265 (여수장어구이) - 국내산 장어를 숯불에 구운 전문점</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="18">
                         <div class="location-time">⏰ 14:00-15:00</div>
                         <div class="location-name">
                             <span class="type-badge type-shopping">쇼핑</span>
@@ -418,7 +633,7 @@
                         </div>
                         <div class="location-address">여수 중앙시장 - 여수 특산물 및 기념품 구매</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="19">
                         <div class="location-time">⏰ 15:30</div>
                         <div class="location-name">
                             <span class="type-badge type-departure">출발</span>
@@ -426,7 +641,7 @@
                         </div>
                         <div class="location-address">여수시청 - 서울로 출발</div>
                     </div>
-                    <div class="location-item">
+                    <div class="location-item" data-index="20">
                         <div class="location-time">⏰ 19:05</div>
                         <div class="location-name">
                             <span class="type-badge type-arrival">도착</span>
@@ -440,10 +655,15 @@
     </div>
 
     <script>
+        // 전역 변수
+        let map;
+        let markers = [];
+        let infoWindows = [];
+
         // 구글맵스 초기화
         function initMap() {
             // 지도 생성
-            const map = new google.maps.Map(document.getElementById('map'), {
+            map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 11,
                 center: { lat: 34.7604, lng: 127.6622 },
                 mapTypeId: 'roadmap',
@@ -453,7 +673,15 @@
                         elementType: 'labels',
                         stylers: [{ visibility: 'on' }]
                     }
-                ]
+                ],
+                // 모바일 최적화
+                gestureHandling: 'greedy',
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: true
             });
 
             // 마커 위치 데이터
@@ -731,24 +959,32 @@
                             text: String(index + 1),
                             color: 'white',
                             fontWeight: 'bold',
-                            fontSize: '12px'
-                        }
+                            fontSize: '11px'
+                        },
+                        animation: google.maps.Animation.DROP
                     });
+
+                    markers.push(marker);
 
                     // 정보 창
                     const infoWindow = new google.maps.InfoWindow({
                         content: `
-                            <div style="padding: 10px; font-family: 'Malgun Gothic'; max-width: 250px;">
-                                <h3 style="margin: 0 0 10px 0; font-size: 14px;">${loc.name}</h3>
-                                <p style="margin: 5px 0; font-size: 12px;"><strong>시간:</strong> ${loc.time}</p>
-                                <p style="margin: 5px 0; font-size: 12px;"><strong>Day ${loc.day}</strong></p>
-                                <p style="margin: 5px 0; font-size: 11px; color: #666;">${loc.address || ''}</p>
+                            <div style="padding: 10px; font-family: 'Malgun Gothic'; max-width: 200px;">
+                                <h3 style="margin: 0 0 8px 0; font-size: 13px; color: #333;">${loc.name}</h3>
+                                <p style="margin: 4px 0; font-size: 11px; color: #666;"><strong>시간:</strong> ${loc.time}</p>
+                                <p style="margin: 4px 0; font-size: 11px; color: #666;"><strong>Day ${loc.day}</strong></p>
+                                <p style="margin: 4px 0; font-size: 10px; color: #888;">${loc.address || ''}</p>
                             </div>
                         `
                     });
 
+                    infoWindows.push(infoWindow);
+
                     // 마커 클릭 이벤트
                     marker.addListener('click', () => {
+                        // 모든 정보창 닫기
+                        infoWindows.forEach(iw => iw.close());
+                        // 클릭한 마커의 정보창만 열기
                         infoWindow.open(map, marker);
                     });
 
@@ -786,22 +1022,53 @@
                 strokeWeight: 3
             });
             polyline3.setMap(map);
+
+            // 장소 아이템 클릭 이벤트 (지도 연동)
+            document.querySelectorAll('.location-item').forEach((item) => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+
+                    // 모든 아이템 스타일 초기화
+                    document.querySelectorAll('.location-item').forEach(i => {
+                        i.style.background = '';
+                    });
+
+                    // 클릭한 아이템 하이라이트
+                    this.style.background = '#e3f2fd';
+
+                    // 해당 마커로 지도 이동 및 정보창 열기
+                    if (markers[index] && infoWindows[index]) {
+                        const marker = markers[index];
+                        map.panTo(marker.getPosition());
+                        map.setZoom(14);
+
+                        // 모든 정보창 닫기
+                        infoWindows.forEach(iw => iw.close());
+
+                        // 선택한 정보창 열기
+                        infoWindows[index].open(map, marker);
+
+                        // 마커 애니메이션
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+                        setTimeout(() => {
+                            marker.setAnimation(null);
+                        }, 1400);
+                    }
+                });
+            });
         }
 
-        // 장소 클릭 시 지도 이동
-        document.querySelectorAll('.location-item').forEach((item, index) => {
-            item.addEventListener('click', function() {
-                // 모든 아이템에서 활성화 제거
-                document.querySelectorAll('.location-item').forEach(i => {
-                    i.style.background = '';
-                });
-                // 클릭한 아이템 활성화
-                this.style.background = '#e3f2fd';
-            });
+        // 에러 핸들링
+        window.addEventListener('error', function(e) {
+            if (e.message.includes('Google Maps')) {
+                document.getElementById('map').innerHTML =
+                    '<div class="loading" style="color: #d32f2f;">⚠️ 지도를 불러올 수 없습니다. API 키를 확인해주세요.</div>';
+            }
         });
     </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyFS9kdwWJAtq_2eX3Q-wnI1igBhDTFek&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyFS9kdwWJAtq_2eX3Q-wnI1igBhDTFek&callback=initMap"
+        onerror="document.getElementById('map').innerHTML='<div class=\'loading\' style=\'color:#d32f2f;\'>⚠️ 지도를 불러올 수 없습니다</div>'">
     </script>
 </body>
 </html>
