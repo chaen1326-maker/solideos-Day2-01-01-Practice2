@@ -2,258 +2,439 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여수 2박 3일 여행 경로</title>
     <style>
-        body {
-            font-family: 'Malgun Gothic', sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            box-sizing: border-box;
         }
-        h1 {
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
             text-align: center;
-            color: #333;
         }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 0;
+            height: calc(100vh - 90px);
+        }
+
+        .map-section {
+            position: relative;
+            background: #f0f0f0;
+        }
+
         #map {
             width: 100%;
-            height: 600px;
-            margin: 20px 0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            height: 100%;
         }
-        .info {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        .schedule-section {
+            background: #fafafa;
+            overflow-y: auto;
+            border-left: 1px solid #ddd;
         }
-        .location-list {
-            margin-top: 20px;
+
+        .schedule-section::-webkit-scrollbar {
+            width: 8px;
         }
-        .location-item {
-            padding: 15px;
-            margin: 10px 0;
-            background: #f9f9f9;
-            border-left: 4px solid #4285f4;
+
+        .schedule-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .schedule-section::-webkit-scrollbar-thumb {
+            background: #888;
             border-radius: 4px;
         }
+
+        .schedule-section::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .day-section {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
         .day-header {
-            background: #4285f4;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 10px 15px;
-            margin: 20px 0 10px 0;
-            border-radius: 4px;
+            padding: 12px 15px;
             font-weight: bold;
+            font-size: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
+        .location-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .location-item:hover {
+            background: #f0f0f0;
+        }
+
+        .location-item:last-child {
+            border-bottom: none;
+        }
+
+        .location-time {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .location-name {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
             color: #333;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .location-time {
-            color: #666;
-            font-size: 14px;
-            margin-top: 5px;
-        }
+
         .location-address {
+            font-size: 12px;
             color: #888;
-            font-size: 13px;
-            margin-top: 5px;
+            line-height: 1.4;
         }
+
         .type-badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            margin-right: 5px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: normal;
         }
-        .type-attraction { background: #e3f2fd; color: #1976d2; }
-        .type-meal { background: #fff3e0; color: #f57c00; }
-        .type-accommodation { background: #f3e5f5; color: #7b1fa2; }
-        .type-arrival { background: #e8f5e9; color: #388e3c; }
-        .type-departure { background: #ffebee; color: #d32f2f; }
+
+        .type-attraction {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .type-meal {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .type-accommodation {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .type-arrival {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .type-departure {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .type-shopping {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .map-section {
+                height: 400px;
+            }
+
+            .schedule-section {
+                border-left: none;
+                border-top: 1px solid #ddd;
+                max-height: 600px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="info">
-        <h1>🗺️ 서울-여수 2박 3일 여행 경로</h1>
+    <div class="container">
+        <header>
+            <h1>🗺️ 서울-여수 2박 3일 여행 경로</h1>
+            <p>교통편, 관광지, 맛집을 한눈에</p>
+        </header>
 
-        <div id="map"></div>
+        <div class="main-content">
+            <div class="map-section">
+                <div id="map"></div>
+            </div>
 
-        <div class="location-list">
-            <h2>📍 방문 장소 목록</h2>
-            <div class="day-header">Day 1</div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-arrival">arrival</span>
-                    여수 도착
+            <div class="schedule-section">
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">총 일정</div>
+                        <div class="stat-value">2박 3일</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">방문지</div>
+                        <div class="stat-value">21곳</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">예상 비용</div>
+                        <div class="stat-value">47만원</div>
+                    </div>
                 </div>
-                <div class="location-time">⏰ 12:00</div>
-                <div class="location-address">📍 여수시청</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-meal">meal</span>
-                    점심 식사 - 돌게장 맛집
+
+                <div class="day-section">
+                    <div class="day-header">📅 Day 1 - 여수 도착 및 오후 관광</div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 12:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-arrival">도착</span>
+                            여수 도착
+                        </div>
+                        <div class="location-address">여수시청 - 서울시청에서 출발하여 여수 도착</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 12:30-14:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-meal">식사</span>
+                            점심 식사 - 돌게장 맛집
+                        </div>
+                        <div class="location-address">여수시 돌산읍 돌산로 3600 (서울식당) - 60년 전통의 돌게장 원조 맛집</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 14:30-16:30</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            오동도 관광
+                        </div>
+                        <div class="location-address">여수시 오동도로 222 - 동백꽃으로 유명한 아름다운 섬</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 17:00-19:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            여수 해상케이블카
+                        </div>
+                        <div class="location-address">여수시 돌산읍 돌산로 3600-1 - 입장료 15,000원</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 19:30-21:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-meal">식사</span>
+                            저녁 식사 - 아구찜
+                        </div>
+                        <div class="location-address">여수시 학동 252-1 (여수아구찜) - 매콤하고 푸짐한 아구찜</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 21:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-accommodation">숙박</span>
+                            숙소 도착
+                        </div>
+                        <div class="location-address">여수 시내 호텔 - 숙소로 이동 및 휴식</div>
+                    </div>
                 </div>
-                <div class="location-time">⏰ 12:30-14:00</div>
-                <div class="location-address">📍 여수시 돌산읍 돌산로 3600</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    오동도 관광
+
+                <div class="day-section">
+                    <div class="day-header">📅 Day 2 - 여수 본격 관광</div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 06:00-08:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            향일암 해돋이
+                        </div>
+                        <div class="location-address">여수시 돌산읍 향일암로 60 - 해돋이로 유명한 아름다운 사찰</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 08:30-10:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-meal">식사</span>
+                            아침 식사 - 백반
+                        </div>
+                        <div class="location-address">여수시 군자동 5-10 (진남관백반) - 푸짐한 반찬과 가정식 백반</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 10:30-12:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            해양레일바이크
+                        </div>
+                        <div class="location-address">여수시 망마로 187 - 바다 위를 달리는 레일바이크 (입장료 20,000원)</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 12:30-14:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-meal">식사</span>
+                            점심 식사 - 생선구이
+                        </div>
+                        <div class="location-address">여수시 광무동 1-5 (해양식당) - 갓 잡은 생선으로 만든 생선구이 정식</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 14:30-16:30</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            여수 엑스포 해양공원
+                        </div>
+                        <div class="location-address">여수시 박람회길 1 - 2012 여수세계박람회 개최지 (입장료 5,000원)</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 17:00-18:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            진남관
+                        </div>
+                        <div class="location-address">여수시 군자동 5-1 - 전라좌수영의 본영 역사 유적 (입장료 2,000원)</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 18:30-20:30</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            돌산대교 야경 & 낭만포차거리
+                        </div>
+                        <div class="location-address">여수시 돌산읍 - 여수의 대표 야경 명소</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 20:30-21:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-meal">식사</span>
+                            저녁 식사 - 낭만포차
+                        </div>
+                        <div class="location-address">여수시 중앙동 포차거리 - 여수 밤바다를 즐기며 포차 음식</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 21:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-accommodation">숙박</span>
+                            숙소 도착
+                        </div>
+                        <div class="location-address">여수 시내 호텔 - 숙소로 이동 및 휴식</div>
+                    </div>
                 </div>
-                <div class="location-time">⏰ 14:30-16:30</div>
-                <div class="location-address">📍 여수시 오동도로 222</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    여수 해상케이블카
+
+                <div class="day-section">
+                    <div class="day-header">📅 Day 3 - 여수 마지막 관광 및 서울 귀가</div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 09:00-10:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            만성리 해수욕장
+                        </div>
+                        <div class="location-address">여수시 만성리 산1-22 - 깨끗한 백사장과 맑은 바닷물</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 10:30-11:30</div>
+                        <div class="location-name">
+                            <span class="type-badge type-attraction">관광</span>
+                            하멜등대
+                        </div>
+                        <div class="location-address">여수시 오동도로 222 - 오동도의 상징적인 등대</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 12:00-13:30</div>
+                        <div class="location-name">
+                            <span class="type-badge type-meal">식사</span>
+                            점심 식사 - 장어구이
+                        </div>
+                        <div class="location-address">여수시 문수동 1265 (여수장어구이) - 국내산 장어를 숯불에 구운 전문점</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 14:00-15:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-shopping">쇼핑</span>
+                            기념품 구매 및 여행 정리
+                        </div>
+                        <div class="location-address">여수 중앙시장 - 여수 특산물 및 기념품 구매</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 15:30</div>
+                        <div class="location-name">
+                            <span class="type-badge type-departure">출발</span>
+                            여수 출발
+                        </div>
+                        <div class="location-address">여수시청 - 서울로 출발</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-time">⏰ 19:05</div>
+                        <div class="location-name">
+                            <span class="type-badge type-arrival">도착</span>
+                            서울 도착
+                        </div>
+                        <div class="location-address">서울시청 - 여행 종료 및 귀가</div>
+                    </div>
                 </div>
-                <div class="location-time">⏰ 17:00-19:00</div>
-                <div class="location-address">📍 여수시 돌산읍 돌산로 3600-1</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-meal">meal</span>
-                    저녁 식사 - 아구찜
-                </div>
-                <div class="location-time">⏰ 19:30-21:00</div>
-                <div class="location-address">📍 여수시 학동 252-1</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-accommodation">accommodation</span>
-                    숙소 도착
-                </div>
-                <div class="location-time">⏰ 21:00</div>
-                <div class="location-address">📍 여수 시내 호텔</div>
-            </div>
-            <div class="day-header">Day 2</div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    향일암 해돋이
-                </div>
-                <div class="location-time">⏰ 06:00-08:00</div>
-                <div class="location-address">📍 여수시 돌산읍 향일암로 60</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-meal">meal</span>
-                    아침 식사 - 백반
-                </div>
-                <div class="location-time">⏰ 08:30-10:00</div>
-                <div class="location-address">📍 여수시 군자동 5-10</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    해양레일바이크
-                </div>
-                <div class="location-time">⏰ 10:30-12:00</div>
-                <div class="location-address">📍 여수시 망마로 187</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-meal">meal</span>
-                    점심 식사 - 생선구이
-                </div>
-                <div class="location-time">⏰ 12:30-14:00</div>
-                <div class="location-address">📍 여수시 광무동 1-5</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    여수 엑스포 해양공원
-                </div>
-                <div class="location-time">⏰ 14:30-16:30</div>
-                <div class="location-address">📍 여수시 박람회길 1</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    진남관
-                </div>
-                <div class="location-time">⏰ 17:00-18:00</div>
-                <div class="location-address">📍 여수시 군자동 5-1</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    돌산대교 야경 & 낭만포차거리
-                </div>
-                <div class="location-time">⏰ 18:30-20:30</div>
-                <div class="location-address">📍 여수시 돌산읍</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-meal">meal</span>
-                    저녁 식사 - 낭만포차
-                </div>
-                <div class="location-time">⏰ 20:30-21:00</div>
-                <div class="location-address">📍 여수시 중앙동 포차거리</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-accommodation">accommodation</span>
-                    숙소 도착
-                </div>
-                <div class="location-time">⏰ 21:00</div>
-                <div class="location-address">📍 여수 시내 호텔</div>
-            </div>
-            <div class="day-header">Day 3</div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    만성리 해수욕장
-                </div>
-                <div class="location-time">⏰ 09:00-10:00</div>
-                <div class="location-address">📍 여수시 만성리 산1-22</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-attraction">attraction</span>
-                    하멜등대
-                </div>
-                <div class="location-time">⏰ 10:30-11:30</div>
-                <div class="location-address">📍 여수시 오동도로 222</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-meal">meal</span>
-                    점심 식사 - 장어구이
-                </div>
-                <div class="location-time">⏰ 12:00-13:30</div>
-                <div class="location-address">📍 여수시 문수동 1265</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-shopping">shopping</span>
-                    기념품 구매 및 여행 정리
-                </div>
-                <div class="location-time">⏰ 14:00-15:00</div>
-                <div class="location-address">📍 여수 중앙시장</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-departure">departure</span>
-                    여수 출발
-                </div>
-                <div class="location-time">⏰ 15:30</div>
-                <div class="location-address">📍 여수시청</div>
-            </div>
-            <div class="location-item">
-                <div class="location-name">
-                    <span class="type-badge type-arrival">arrival</span>
-                    서울 도착
-                </div>
-                <div class="location-time">⏰ 19:05</div>
-                <div class="location-address">📍 서울시청</div>
             </div>
         </div>
     </div>
@@ -263,16 +444,257 @@
         function initMap() {
             // 지도 생성
             const map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
+                zoom: 11,
                 center: { lat: 34.7604, lng: 127.6622 },
-                mapTypeId: 'roadmap'
+                mapTypeId: 'roadmap',
+                styles: [
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels',
+                        stylers: [{ visibility: 'on' }]
+                    }
+                ]
             });
 
             // 마커 위치 데이터
-            const locations = [{"name": "여수 도착", "time": "12:00", "day": 1, "type": "arrival", "coordinates": {"lat": 34.7604, "lng": 127.6622}, "address": "여수시청"}, {"name": "점심 식사 - 돌게장 맛집", "time": "12:30-14:00", "day": 1, "type": "meal", "coordinates": {"lat": 34.7456, "lng": 127.7642}, "address": "여수시 돌산읍 돌산로 3600"}, {"name": "오동도 관광", "time": "14:30-16:30", "day": 1, "type": "attraction", "coordinates": {"lat": 34.7469, "lng": 127.7708}, "address": "여수시 오동도로 222"}, {"name": "여수 해상케이블카", "time": "17:00-19:00", "day": 1, "type": "attraction", "coordinates": {"lat": 34.7461, "lng": 127.7656}, "address": "여수시 돌산읍 돌산로 3600-1"}, {"name": "저녁 식사 - 아구찜", "time": "19:30-21:00", "day": 1, "type": "meal", "coordinates": {"lat": 34.7423, "lng": 127.7512}, "address": "여수시 학동 252-1"}, {"name": "숙소 도착", "time": "21:00", "day": 1, "type": "accommodation", "coordinates": {"lat": 34.7604, "lng": 127.6622}, "address": "여수 시내 호텔"}, {"name": "향일암 해돋이", "time": "06:00-08:00", "day": 2, "type": "attraction", "coordinates": {"lat": 34.6236, "lng": 127.725}, "address": "여수시 돌산읍 향일암로 60"}, {"name": "아침 식사 - 백반", "time": "08:30-10:00", "day": 2, "type": "meal", "coordinates": {"lat": 34.7385, "lng": 127.7352}, "address": "여수시 군자동 5-10"}, {"name": "해양레일바이크", "time": "10:30-12:00", "day": 2, "type": "attraction", "coordinates": {"lat": 34.7486, "lng": 127.7453}, "address": "여수시 망마로 187"}, {"name": "점심 식사 - 생선구이", "time": "12:30-14:00", "day": 2, "type": "meal", "coordinates": {"lat": 34.7392, "lng": 127.7425}, "address": "여수시 광무동 1-5"}, {"name": "여수 엑스포 해양공원", "time": "14:30-16:30", "day": 2, "type": "attraction", "coordinates": {"lat": 34.7506, "lng": 127.7425}, "address": "여수시 박람회길 1"}, {"name": "진남관", "time": "17:00-18:00", "day": 2, "type": "attraction", "coordinates": {"lat": 34.7381, "lng": 127.7347}, "address": "여수시 군자동 5-1"}, {"name": "돌산대교 야경 & 낭만포차거리", "time": "18:30-20:30", "day": 2, "type": "attraction", "coordinates": {"lat": 34.7372, "lng": 127.7481}, "address": "여수시 돌산읍"}, {"name": "저녁 식사 - 낭만포차", "time": "20:30-21:00", "day": 2, "type": "meal", "coordinates": {"lat": 34.7421, "lng": 127.7381}, "address": "여수시 중앙동 포차거리"}, {"name": "숙소 도착", "time": "21:00", "day": 2, "type": "accommodation", "coordinates": {"lat": 34.7604, "lng": 127.6622}, "address": "여수 시내 호텔"}, {"name": "만성리 해수욕장", "time": "09:00-10:00", "day": 3, "type": "attraction", "coordinates": {"lat": 34.7325, "lng": 127.8089}, "address": "여수시 만성리 산1-22"}, {"name": "하멜등대", "time": "10:30-11:30", "day": 3, "type": "attraction", "coordinates": {"lat": 34.7461, "lng": 127.7722}, "address": "여수시 오동도로 222"}, {"name": "점심 식사 - 장어구이", "time": "12:00-13:30", "day": 3, "type": "meal", "coordinates": {"lat": 34.7352, "lng": 127.7289}, "address": "여수시 문수동 1265"}, {"name": "기념품 구매 및 여행 정리", "time": "14:00-15:00", "day": 3, "type": "shopping", "coordinates": {"lat": 34.7604, "lng": 127.6622}, "address": "여수 중앙시장"}, {"name": "여수 출발", "time": "15:30", "day": 3, "type": "departure", "coordinates": {"lat": 34.7604, "lng": 127.6622}, "address": "여수시청"}, {"name": "서울 도착", "time": "19:05", "day": 3, "type": "arrival", "coordinates": {"lat": 34.7604, "lng": 127.6622}, "address": "서울시청"}];
+            const locations = [
+  {
+    "name": "여수 도착",
+    "time": "12:00",
+    "day": 1,
+    "type": "arrival",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수시청"
+  },
+  {
+    "name": "점심 식사 - 돌게장 맛집",
+    "time": "12:30-14:00",
+    "day": 1,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7456,
+      "lng": 127.7642
+    },
+    "address": "여수시 돌산읍 돌산로 3600"
+  },
+  {
+    "name": "오동도 관광",
+    "time": "14:30-16:30",
+    "day": 1,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7469,
+      "lng": 127.7708
+    },
+    "address": "여수시 오동도로 222"
+  },
+  {
+    "name": "여수 해상케이블카",
+    "time": "17:00-19:00",
+    "day": 1,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7461,
+      "lng": 127.7656
+    },
+    "address": "여수시 돌산읍 돌산로 3600-1"
+  },
+  {
+    "name": "저녁 식사 - 아구찜",
+    "time": "19:30-21:00",
+    "day": 1,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7423,
+      "lng": 127.7512
+    },
+    "address": "여수시 학동 252-1"
+  },
+  {
+    "name": "숙소 도착",
+    "time": "21:00",
+    "day": 1,
+    "type": "accommodation",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수 시내 호텔"
+  },
+  {
+    "name": "향일암 해돋이",
+    "time": "06:00-08:00",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.6236,
+      "lng": 127.725
+    },
+    "address": "여수시 돌산읍 향일암로 60"
+  },
+  {
+    "name": "아침 식사 - 백반",
+    "time": "08:30-10:00",
+    "day": 2,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7385,
+      "lng": 127.7352
+    },
+    "address": "여수시 군자동 5-10"
+  },
+  {
+    "name": "해양레일바이크",
+    "time": "10:30-12:00",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7486,
+      "lng": 127.7453
+    },
+    "address": "여수시 망마로 187"
+  },
+  {
+    "name": "점심 식사 - 생선구이",
+    "time": "12:30-14:00",
+    "day": 2,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7392,
+      "lng": 127.7425
+    },
+    "address": "여수시 광무동 1-5"
+  },
+  {
+    "name": "여수 엑스포 해양공원",
+    "time": "14:30-16:30",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7506,
+      "lng": 127.7425
+    },
+    "address": "여수시 박람회길 1"
+  },
+  {
+    "name": "진남관",
+    "time": "17:00-18:00",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7381,
+      "lng": 127.7347
+    },
+    "address": "여수시 군자동 5-1"
+  },
+  {
+    "name": "돌산대교 야경 & 낭만포차거리",
+    "time": "18:30-20:30",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7372,
+      "lng": 127.7481
+    },
+    "address": "여수시 돌산읍"
+  },
+  {
+    "name": "저녁 식사 - 낭만포차",
+    "time": "20:30-21:00",
+    "day": 2,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7421,
+      "lng": 127.7381
+    },
+    "address": "여수시 중앙동 포차거리"
+  },
+  {
+    "name": "숙소 도착",
+    "time": "21:00",
+    "day": 2,
+    "type": "accommodation",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수 시내 호텔"
+  },
+  {
+    "name": "만성리 해수욕장",
+    "time": "09:00-10:00",
+    "day": 3,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7325,
+      "lng": 127.8089
+    },
+    "address": "여수시 만성리 산1-22"
+  },
+  {
+    "name": "하멜등대",
+    "time": "10:30-11:30",
+    "day": 3,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7461,
+      "lng": 127.7722
+    },
+    "address": "여수시 오동도로 222"
+  },
+  {
+    "name": "점심 식사 - 장어구이",
+    "time": "12:00-13:30",
+    "day": 3,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7352,
+      "lng": 127.7289
+    },
+    "address": "여수시 문수동 1265"
+  },
+  {
+    "name": "기념품 구매 및 여행 정리",
+    "time": "14:00-15:00",
+    "day": 3,
+    "type": "shopping",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수 중앙시장"
+  },
+  {
+    "name": "여수 출발",
+    "time": "15:30",
+    "day": 3,
+    "type": "departure",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수시청"
+  },
+  {
+    "name": "서울 도착",
+    "time": "19:05",
+    "day": 3,
+    "type": "arrival",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "서울시청"
+  }
+];
 
-            // 경로 좌표 배열
-            const path = [];
+            // 경로 좌표 배열 (일별로)
+            const day1Path = [];
+            const day2Path = [];
+            const day3Path = [];
 
             // 마커 추가
             locations.forEach((loc, index) => {
@@ -283,18 +705,18 @@
                     };
 
                     // 마커 아이콘 색상 (타입별)
-                    let icon = {
-                        url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-                    };
+                    let iconUrl = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
 
                     if (loc.type === 'attraction') {
-                        icon.url = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+                        iconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
                     } else if (loc.type === 'meal') {
-                        icon.url = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
+                        iconUrl = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
                     } else if (loc.type === 'accommodation') {
-                        icon.url = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+                        iconUrl = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
                     } else if (loc.type === 'arrival' || loc.type === 'departure') {
-                        icon.url = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                        iconUrl = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                    } else if (loc.type === 'shopping') {
+                        iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
                     }
 
                     // 마커 생성
@@ -302,22 +724,25 @@
                         position: position,
                         map: map,
                         title: loc.name,
-                        icon: icon,
+                        icon: {
+                            url: iconUrl
+                        },
                         label: {
                             text: String(index + 1),
                             color: 'white',
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
+                            fontSize: '12px'
                         }
                     });
 
                     // 정보 창
                     const infoWindow = new google.maps.InfoWindow({
                         content: `
-                            <div style="padding: 10px; font-family: 'Malgun Gothic';">
-                                <h3 style="margin: 0 0 10px 0;">${loc.name}</h3>
-                                <p style="margin: 5px 0;"><strong>시간:</strong> ${loc.time}</p>
-                                <p style="margin: 5px 0;"><strong>Day ${loc.day}</strong></p>
-                                <p style="margin: 5px 0;">${loc.address || ''}</p>
+                            <div style="padding: 10px; font-family: 'Malgun Gothic'; max-width: 250px;">
+                                <h3 style="margin: 0 0 10px 0; font-size: 14px;">${loc.name}</h3>
+                                <p style="margin: 5px 0; font-size: 12px;"><strong>시간:</strong> ${loc.time}</p>
+                                <p style="margin: 5px 0; font-size: 12px;"><strong>Day ${loc.day}</strong></p>
+                                <p style="margin: 5px 0; font-size: 11px; color: #666;">${loc.address || ''}</p>
                             </div>
                         `
                     });
@@ -328,21 +753,52 @@
                     });
 
                     // 경로에 추가
-                    path.push(position);
+                    if (loc.day === 1) day1Path.push(position);
+                    else if (loc.day === 2) day2Path.push(position);
+                    else if (loc.day === 3) day3Path.push(position);
                 }
             });
 
-            // 경로 선 그리기
-            const routePath = new google.maps.Polyline({
-                path: path,
+            // 경로 선 그리기 (일별로 다른 색상)
+            const polyline1 = new google.maps.Polyline({
+                path: day1Path,
                 geodesic: true,
-                strokeColor: '#4285f4',
+                strokeColor: '#FF6B6B',
                 strokeOpacity: 0.8,
                 strokeWeight: 3
             });
+            polyline1.setMap(map);
 
-            routePath.setMap(map);
+            const polyline2 = new google.maps.Polyline({
+                path: day2Path,
+                geodesic: true,
+                strokeColor: '#4ECDC4',
+                strokeOpacity: 0.8,
+                strokeWeight: 3
+            });
+            polyline2.setMap(map);
+
+            const polyline3 = new google.maps.Polyline({
+                path: day3Path,
+                geodesic: true,
+                strokeColor: '#95E1D3',
+                strokeOpacity: 0.8,
+                strokeWeight: 3
+            });
+            polyline3.setMap(map);
         }
+
+        // 장소 클릭 시 지도 이동
+        document.querySelectorAll('.location-item').forEach((item, index) => {
+            item.addEventListener('click', function() {
+                // 모든 아이템에서 활성화 제거
+                document.querySelectorAll('.location-item').forEach(i => {
+                    i.style.background = '';
+                });
+                // 클릭한 아이템 활성화
+                this.style.background = '#e3f2fd';
+            });
+        });
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
