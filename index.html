@@ -196,39 +196,45 @@
 
         /* 교통편 정보 스타일 */
         .transport-info {
-            background: #f5f5f5;
-            padding: 10px 15px;
-            margin: 0;
-            border-left: 4px solid #4caf50;
+            background: #e8f5e9;
+            padding: 12px 15px;
+            margin: 8px 15px;
+            border-left: 6px solid #4caf50;
+            border-radius: 0 8px 8px 0;
             font-size: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .transport-icon {
             display: inline-block;
-            width: 20px;
+            width: 24px;
             text-align: center;
-            margin-right: 5px;
+            margin-right: 8px;
+            font-size: 16px;
         }
 
         .transport-detail {
-            color: #555;
-            margin-top: 3px;
+            color: #2e7d32;
+            margin-top: 5px;
             font-size: 11px;
+            padding-left: 32px;
         }
 
         .transport-time {
-            color: #666;
-            font-weight: 500;
+            color: #1b5e20;
+            font-weight: 600;
         }
 
         @media (max-width: 768px) {
             .transport-info {
-                padding: 8px 12px;
+                padding: 10px 12px;
+                margin: 6px 10px;
                 font-size: 11px;
             }
 
             .transport-detail {
                 font-size: 10px;
+                padding-left: 28px;
             }
         }
 
@@ -510,16 +516,16 @@
                 </div>
 
                 <div class="day-section">
-                    <div class="day-header">📅 Day 1 - 서울 출발 및 여수 관광</div>
+                    <div class="day-header">📅 Day 1 - 🏛️ 서울시청 출발 → 여수</div>
 
-                    <!-- 서울 출발 -->
+                    <!-- 서울시청 출발 -->
                     <div class="location-item" data-index="0">
-                        <div class="location-time">⏰ 08:20</div>
+                        <div class="location-time">⏰ 08:20 출발</div>
                         <div class="location-name">
                             <span class="type-badge type-departure">출발</span>
-                            서울시청 출발
+                            🏛️ 서울시청 (여행 시작!)
                         </div>
-                        <div class="location-address">서울특별시 중구 세종대로 110 - 여수로 출발</div>
+                        <div class="location-address">📍 서울특별시 중구 세종대로 110 → KTX 타러 서울역으로 이동</div>
                     </div>
 
                     <!-- 교통편: 서울시청 → 서울역 -->
@@ -617,17 +623,17 @@
 
                     <!-- 교통편: 식당 → 숙소 -->
                     <div class="transport-info">
-                        <div><span class="transport-icon">🚕</span><strong>택시</strong> <span class="transport-time">(10분, 약 5,000원)</span></div>
-                        <div class="transport-detail">학동 → 여수 시내 호텔</div>
+                        <div><span class="transport-icon">🚕</span><strong>택시</strong> <span class="transport-time">(5분, 약 3,500원)</span></div>
+                        <div class="transport-detail">학동 → 중앙동 (여수 시내 중심가)</div>
                     </div>
 
                     <div class="location-item" data-index="7">
                         <div class="location-time">⏰ 21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-accommodation">숙박</span>
-                            숙소 도착
+                            숙소 도착 (중앙동)
                         </div>
-                        <div class="location-address">여수 시내 호텔 - 숙소로 이동 및 휴식</div>
+                        <div class="location-address">📍 여수시 중앙동 호텔 - 시내 중심가, 관광지 접근 편리</div>
                     </div>
                 </div>
 
@@ -701,9 +707,9 @@
                         <div class="location-time">⏰ 21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-accommodation">숙박</span>
-                            숙소 도착
+                            숙소 도착 (중앙동)
                         </div>
-                        <div class="location-address">여수 시내 호텔 - 숙소로 이동 및 휴식</div>
+                        <div class="location-address">📍 여수시 중앙동 호텔 - 시내 중심가, 포차거리 도보 5분</div>
                     </div>
                 </div>
 
@@ -893,10 +899,10 @@
     "day": 1,
     "type": "accommodation",
     "coordinates": {
-      "lat": 34.7604,
-      "lng": 127.6622
+      "lat": 34.7419,
+      "lng": 127.7378
     },
-    "address": "여수 시내 호텔"
+    "address": "여수시 중앙동 호텔"
   },
   {
     "name": "향일암 해돋이",
@@ -992,10 +998,10 @@
     "day": 2,
     "type": "accommodation",
     "coordinates": {
-      "lat": 34.7604,
-      "lng": 127.6622
+      "lat": 34.7419,
+      "lng": 127.7378
     },
-    "address": "여수 시내 호텔"
+    "address": "여수시 중앙동 호텔"
   },
   {
     "name": "만성리 해수욕장",
