@@ -1,0 +1,233 @@
+[
+  {
+    "name": "여수 도착",
+    "time": "12:00",
+    "day": 1,
+    "type": "arrival",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수시청"
+  },
+  {
+    "name": "점심 식사 - 돌게장 맛집",
+    "time": "12:30-14:00",
+    "day": 1,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7456,
+      "lng": 127.7642
+    },
+    "address": "여수시 돌산읍 돌산로 3600"
+  },
+  {
+    "name": "오동도 관광",
+    "time": "14:30-16:30",
+    "day": 1,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7469,
+      "lng": 127.7708
+    },
+    "address": "여수시 오동도로 222"
+  },
+  {
+    "name": "여수 해상케이블카",
+    "time": "17:00-19:00",
+    "day": 1,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7461,
+      "lng": 127.7656
+    },
+    "address": "여수시 돌산읍 돌산로 3600-1"
+  },
+  {
+    "name": "저녁 식사 - 아구찜",
+    "time": "19:30-21:00",
+    "day": 1,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7423,
+      "lng": 127.7512
+    },
+    "address": "여수시 학동 252-1"
+  },
+  {
+    "name": "숙소 도착",
+    "time": "21:00",
+    "day": 1,
+    "type": "accommodation",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수 시내 호텔"
+  },
+  {
+    "name": "향일암 해돋이",
+    "time": "06:00-08:00",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.6236,
+      "lng": 127.725
+    },
+    "address": "여수시 돌산읍 향일암로 60"
+  },
+  {
+    "name": "아침 식사 - 백반",
+    "time": "08:30-10:00",
+    "day": 2,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7385,
+      "lng": 127.7352
+    },
+    "address": "여수시 군자동 5-10"
+  },
+  {
+    "name": "해양레일바이크",
+    "time": "10:30-12:00",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7486,
+      "lng": 127.7453
+    },
+    "address": "여수시 망마로 187"
+  },
+  {
+    "name": "점심 식사 - 생선구이",
+    "time": "12:30-14:00",
+    "day": 2,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7392,
+      "lng": 127.7425
+    },
+    "address": "여수시 광무동 1-5"
+  },
+  {
+    "name": "여수 엑스포 해양공원",
+    "time": "14:30-16:30",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7506,
+      "lng": 127.7425
+    },
+    "address": "여수시 박람회길 1"
+  },
+  {
+    "name": "진남관",
+    "time": "17:00-18:00",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7381,
+      "lng": 127.7347
+    },
+    "address": "여수시 군자동 5-1"
+  },
+  {
+    "name": "돌산대교 야경 & 낭만포차거리",
+    "time": "18:30-20:30",
+    "day": 2,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7372,
+      "lng": 127.7481
+    },
+    "address": "여수시 돌산읍"
+  },
+  {
+    "name": "저녁 식사 - 낭만포차",
+    "time": "20:30-21:00",
+    "day": 2,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7421,
+      "lng": 127.7381
+    },
+    "address": "여수시 중앙동 포차거리"
+  },
+  {
+    "name": "숙소 도착",
+    "time": "21:00",
+    "day": 2,
+    "type": "accommodation",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수 시내 호텔"
+  },
+  {
+    "name": "만성리 해수욕장",
+    "time": "09:00-10:00",
+    "day": 3,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7325,
+      "lng": 127.8089
+    },
+    "address": "여수시 만성리 산1-22"
+  },
+  {
+    "name": "하멜등대",
+    "time": "10:30-11:30",
+    "day": 3,
+    "type": "attraction",
+    "coordinates": {
+      "lat": 34.7461,
+      "lng": 127.7722
+    },
+    "address": "여수시 오동도로 222"
+  },
+  {
+    "name": "점심 식사 - 장어구이",
+    "time": "12:00-13:30",
+    "day": 3,
+    "type": "meal",
+    "coordinates": {
+      "lat": 34.7352,
+      "lng": 127.7289
+    },
+    "address": "여수시 문수동 1265"
+  },
+  {
+    "name": "기념품 구매 및 여행 정리",
+    "time": "14:00-15:00",
+    "day": 3,
+    "type": "shopping",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수 중앙시장"
+  },
+  {
+    "name": "여수 출발",
+    "time": "15:30",
+    "day": 3,
+    "type": "departure",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "여수시청"
+  },
+  {
+    "name": "서울 도착",
+    "time": "19:05",
+    "day": 3,
+    "type": "arrival",
+    "coordinates": {
+      "lat": 34.7604,
+      "lng": 127.6622
+    },
+    "address": "서울시청"
+  }
+]
