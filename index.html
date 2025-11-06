@@ -194,6 +194,44 @@
             color: #f57f17;
         }
 
+        /* 교통편 정보 스타일 */
+        .transport-info {
+            background: #f5f5f5;
+            padding: 10px 15px;
+            margin: 0;
+            border-left: 4px solid #4caf50;
+            font-size: 12px;
+        }
+
+        .transport-icon {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            margin-right: 5px;
+        }
+
+        .transport-detail {
+            color: #555;
+            margin-top: 3px;
+            font-size: 11px;
+        }
+
+        .transport-time {
+            color: #666;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .transport-info {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            .transport-detail {
+                font-size: 10px;
+            }
+        }
+
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -462,26 +500,67 @@
                         <div class="stat-value">2박 3일</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">방문지</div>
-                        <div class="stat-value">21곳</div>
+                        <div class="stat-label">경유지</div>
+                        <div class="stat-value">23곳</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">예상 비용</div>
-                        <div class="stat-value">47만원</div>
+                        <div class="stat-value">52만원</div>
                     </div>
                 </div>
 
                 <div class="day-section">
-                    <div class="day-header">📅 Day 1 - 여수 도착 및 오후 관광</div>
+                    <div class="day-header">📅 Day 1 - 서울 출발 및 여수 관광</div>
+
+                    <!-- 서울 출발 -->
                     <div class="location-item" data-index="0">
-                        <div class="location-time">⏰ 12:00</div>
+                        <div class="location-time">⏰ 08:20</div>
+                        <div class="location-name">
+                            <span class="type-badge type-departure">출발</span>
+                            서울시청 출발
+                        </div>
+                        <div class="location-address">서울특별시 중구 세종대로 110 - 여수로 출발</div>
+                    </div>
+
+                    <!-- 교통편: 서울시청 → 서울역 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚇</span><strong>지하철 2호선</strong> <span class="transport-time">(10분, 1,400원)</span></div>
+                        <div class="transport-detail">서울시청역 → 서울역 (1개 정거장)</div>
+                    </div>
+
+                    <div class="location-item" data-index="1">
+                        <div class="location-time">⏰ 08:30 ~ 08:50</div>
+                        <div class="location-name">
+                            <span class="type-badge type-arrival">경유</span>
+                            서울역 도착 및 환승
+                        </div>
+                        <div class="location-address">서울특별시 용산구 한강대로 405 - KTX 환승 (도보 5분)</div>
+                    </div>
+
+                    <!-- 교통편: 서울역 → 여수EXPO역 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚄</span><strong>KTX 403 (취소표)</strong> <span class="transport-time">(2시간 50분, 53,820원)</span></div>
+                        <div class="transport-detail">서울역 08:50 출발 → 여수EXPO역 11:40 도착</div>
+                        <div class="transport-detail">💡 일반표 대비 10% 할인 (선착순 마감)</div>
+                    </div>
+
+                    <div class="location-item" data-index="2">
+                        <div class="location-time">⏰ 11:40 ~ 11:50</div>
                         <div class="location-name">
                             <span class="type-badge type-arrival">도착</span>
-                            여수 도착
+                            여수EXPO역 도착
                         </div>
-                        <div class="location-address">여수시청 - 서울시청에서 출발하여 여수 도착</div>
+                        <div class="location-address">전라남도 여수시 박람회길 1 - 여수 도착!</div>
                     </div>
-                    <div class="location-item" data-index="1">
+
+                    <!-- 교통편: 여수EXPO역 → 서울식당 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚌</span><strong>버스 1번 또는 111번</strong> <span class="transport-time">(20분, 1,400원)</span></div>
+                        <div class="transport-detail">여수EXPO역 → 돌산방향 → 서울식당 인근 하차</div>
+                        <div class="transport-detail">또는 🚕 택시 (15분, 약 8,000원)</div>
+                    </div>
+
+                    <div class="location-item" data-index="3">
                         <div class="location-time">⏰ 12:30-14:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -489,7 +568,15 @@
                         </div>
                         <div class="location-address">여수시 돌산읍 돌산로 3600 (서울식당) - 60년 전통의 돌게장 원조 맛집</div>
                     </div>
-                    <div class="location-item" data-index="2">
+
+                    <!-- 교통편: 서울식당 → 오동도 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚕</span><strong>택시</strong> <span class="transport-time">(20분, 약 10,000원)</span></div>
+                        <div class="transport-detail">돌산 → 오동도 방향</div>
+                        <div class="transport-detail">또는 🚌 버스 (30분, 1,400원)</div>
+                    </div>
+
+                    <div class="location-item" data-index="4">
                         <div class="location-time">⏰ 14:30-16:30</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -497,7 +584,14 @@
                         </div>
                         <div class="location-address">여수시 오동도로 222 - 동백꽃으로 유명한 아름다운 섬</div>
                     </div>
-                    <div class="location-item" data-index="3">
+
+                    <!-- 교통편: 오동도 → 해상케이블카 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚕</span><strong>택시</strong> <span class="transport-time">(15분, 약 7,000원)</span></div>
+                        <div class="transport-detail">오동도 → 돌산 해상케이블카 (자산공원)</div>
+                    </div>
+
+                    <div class="location-item" data-index="5">
                         <div class="location-time">⏰ 17:00-19:00</div>
                         <div class="location-name">
                             <span class="type-badge type-attraction">관광</span>
@@ -505,7 +599,14 @@
                         </div>
                         <div class="location-address">여수시 돌산읍 돌산로 3600-1 - 입장료 15,000원</div>
                     </div>
-                    <div class="location-item" data-index="4">
+
+                    <!-- 교통편: 해상케이블카 → 아구찜 식당 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚕</span><strong>택시</strong> <span class="transport-time">(15분, 약 8,000원)</span></div>
+                        <div class="transport-detail">돌산 → 여수 시내 (학동)</div>
+                    </div>
+
+                    <div class="location-item" data-index="6">
                         <div class="location-time">⏰ 19:30-21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-meal">식사</span>
@@ -513,7 +614,14 @@
                         </div>
                         <div class="location-address">여수시 학동 252-1 (여수아구찜) - 매콤하고 푸짐한 아구찜</div>
                     </div>
-                    <div class="location-item" data-index="5">
+
+                    <!-- 교통편: 식당 → 숙소 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚕</span><strong>택시</strong> <span class="transport-time">(10분, 약 5,000원)</span></div>
+                        <div class="transport-detail">학동 → 여수 시내 호텔</div>
+                    </div>
+
+                    <div class="location-item" data-index="7">
                         <div class="location-time">⏰ 21:00</div>
                         <div class="location-name">
                             <span class="type-badge type-accommodation">숙박</span>
@@ -634,20 +742,58 @@
                         <div class="location-address">여수 중앙시장 - 여수 특산물 및 기념품 구매</div>
                     </div>
                     <div class="location-item" data-index="19">
+                        <div class="location-time">⏰ 15:00</div>
+                        <div class="location-name">
+                            <span class="type-badge type-departure">이동</span>
+                            여수EXPO역으로 이동
+                        </div>
+                        <div class="location-address">중앙시장에서 KTX역으로 출발</div>
+                    </div>
+
+                    <!-- 교통편: 중앙시장 → 여수EXPO역 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚌</span><strong>버스 1번</strong> <span class="transport-time">(20분, 1,400원)</span></div>
+                        <div class="transport-detail">여수 시내 → 여수EXPO역</div>
+                        <div class="transport-detail">또는 🚕 택시 (15분, 약 7,000원)</div>
+                    </div>
+
+                    <div class="location-item" data-index="20">
                         <div class="location-time">⏰ 15:30</div>
                         <div class="location-name">
-                            <span class="type-badge type-departure">출발</span>
-                            여수 출발
+                            <span class="type-badge type-arrival">경유</span>
+                            여수EXPO역 도착
                         </div>
-                        <div class="location-address">여수시청 - 서울로 출발</div>
+                        <div class="location-address">전라남도 여수시 박람회길 1 - KTX 탑승 대기</div>
                     </div>
-                    <div class="location-item" data-index="20">
+
+                    <!-- 교통편: 여수EXPO역 → 서울역 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚄</span><strong>KTX 502</strong> <span class="transport-time">(2시간 50분, 59,800원)</span></div>
+                        <div class="transport-detail">여수EXPO역 16:00 출발 → 서울역 18:50 도착</div>
+                    </div>
+
+                    <div class="location-item" data-index="21">
+                        <div class="location-time">⏰ 18:50 ~ 18:55</div>
+                        <div class="location-name">
+                            <span class="type-badge type-arrival">경유</span>
+                            서울역 도착
+                        </div>
+                        <div class="location-address">서울특별시 용산구 한강대로 405 - 지하철 환승</div>
+                    </div>
+
+                    <!-- 교통편: 서울역 → 서울시청 -->
+                    <div class="transport-info">
+                        <div><span class="transport-icon">🚇</span><strong>지하철 2호선</strong> <span class="transport-time">(10분, 1,400원)</span></div>
+                        <div class="transport-detail">서울역 → 서울시청역 (1개 정거장)</div>
+                    </div>
+
+                    <div class="location-item" data-index="22">
                         <div class="location-time">⏰ 19:05</div>
                         <div class="location-name">
                             <span class="type-badge type-arrival">도착</span>
-                            서울 도착
+                            서울시청 도착
                         </div>
-                        <div class="location-address">서울시청 - 여행 종료 및 귀가</div>
+                        <div class="location-address">서울특별시 중구 세종대로 110 - 여행 종료 및 귀가 🎉</div>
                     </div>
                 </div>
             </div>
